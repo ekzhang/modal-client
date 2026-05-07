@@ -58,6 +58,7 @@ def wait_for_port(url: str, q: Queue):
     secrets=[Secret.from_dict({"MODAL_LAUNCH_ARGS": json.dumps(args)})],
     volumes=volumes,
     max_containers=1 if volume else None,
+    nonpreemptible=args.get("nonpreemptible") == "1",
 )
 def run_jupyter(q: Queue):
     os.makedirs("/root/lab", exist_ok=True)

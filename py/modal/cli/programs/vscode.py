@@ -83,6 +83,7 @@ def wait_for_port(data: tuple[str, str], q: Queue):
     secrets=[Secret.from_dict({"MODAL_LAUNCH_ARGS": json.dumps(args)})],
     volumes=volumes,
     max_containers=1 if volume else None,
+    nonpreemptible=args.get("nonpreemptible") == "1",
 )
 def run_vscode(q: Queue):
     os.chdir("/home/coder")

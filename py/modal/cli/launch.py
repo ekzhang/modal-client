@@ -60,6 +60,7 @@ def _launch_program(
 @click.option("--memory", default=32768, type=int)
 @click.option("--gpu", default=None)
 @click.option("--timeout", default=3600, type=int)
+@click.option("--nonpreemptible", is_flag=True, default=False, help="Run on non-preemptible resources")
 @click.option("--image", default="ubuntu:22.04")
 @click.option("--add-python", default="3.11")
 @click.option("--mount", default=None, help="Adds a local directory to the jupyter container")
@@ -75,6 +76,7 @@ def jupyter(
     memory: int = 32768,
     gpu: Optional[str] = None,
     timeout: int = 3600,
+    nonpreemptible: bool = False,
     image: str = "ubuntu:22.04",
     add_python: Optional[str] = "3.11",
     mount: Optional[str] = None,
@@ -97,6 +99,7 @@ def jupyter(
         "memory": memory,
         "gpu": gpu,
         "timeout": timeout,
+        "nonpreemptible": "1" if nonpreemptible else None,
         "image": image,
         "add_python": add_python,
         "mount": mount,
@@ -111,6 +114,7 @@ def jupyter(
 @click.option("--gpu", default=None)
 @click.option("--image", default="debian:12")
 @click.option("--timeout", default=3600, type=int)
+@click.option("--nonpreemptible", is_flag=True, default=False, help="Run on non-preemptible resources")
 @click.option("--mount", default=None, help="Create a modal.Mount from a local directory.")
 @click.option("--volume", default=None, help="Attach a persisted modal.Volume by name (creating if missing).")
 @click.option(
@@ -125,6 +129,7 @@ def vscode(
     gpu: Optional[str] = None,
     image: str = "debian:12",
     timeout: int = 3600,
+    nonpreemptible: bool = False,
     mount: Optional[str] = None,
     volume: Optional[str] = None,
     detach: bool = False,
@@ -135,6 +140,7 @@ def vscode(
         "gpu": gpu,
         "image": image,
         "timeout": timeout,
+        "nonpreemptible": "1" if nonpreemptible else None,
         "mount": mount,
         "volume": volume,
     }
